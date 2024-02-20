@@ -1,5 +1,5 @@
-import android.os.Bundle;
 package com.movy_rn_onboarding
+import android.os.Bundle;
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
