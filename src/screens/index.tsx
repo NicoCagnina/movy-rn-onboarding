@@ -5,16 +5,35 @@ import SearchScreen from './search';
 import HomeScreen from './home';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {RootStackParamList} from '../types/navigation';
+import Colors from '../types/colors';
+import HomeIcon from '../assets/icons/HomeIcon';
+import MyListIcon from '../assets/icons/MyList';
+import SearchIcon from '../assets/icons/SearchIcon';
 
 const Tab = createBottomTabNavigator<RootStackParamList>();
+
+const renderHomeIcon = (color: string) => (
+  <HomeIcon fill={color} width={32} height={32} />
+);
+
+const renderMyListIcon = (color: string) => (
+  <MyListIcon fill={color} width={32} height={32} />
+);
+
+const renderSearchIcon = (color: string) => (
+  <SearchIcon fill={color} width={32} height={32} />
+);
 
 function AppNavigator() {
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: 'tomato',
-          tabBarInactiveTintColor: 'gray',
+          tabBarActiveTintColor: Colors.tabActive,
+          tabBarInactiveTintColor: Colors.white,
+          tabBarStyle: {
+            backgroundColor: Colors.tabBackground,
+          },
           headerShown: false,
         }}>
         <Tab.Screen
@@ -22,17 +41,24 @@ function AppNavigator() {
           component={HomeScreen}
           options={{
             tabBarShowLabel: false,
+            tabBarIcon: ({color}) => renderHomeIcon(color),
+          }}
+        />
+        <Tab.Screen
+          name="Search"
+          component={SearchScreen}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({color}) => renderSearchIcon(color),
           }}
         />
         <Tab.Screen
           name="MyList"
           component={MyListScreen}
-          options={{tabBarShowLabel: false}}
-        />
-        <Tab.Screen
-          name="Search"
-          component={SearchScreen}
-          options={{tabBarShowLabel: false}}
+          options={{
+            tabBarShowLabel: false,
+            tabBarIcon: ({color}) => renderMyListIcon(color),
+          }}
         />
       </Tab.Navigator>
     </NavigationContainer>
