@@ -1,6 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useQuery} from '@tanstack/react-query';
 import {Movie} from '../types/movies';
+import Config from 'react-native-config';
 
 interface MoviesResponse {
   data: Movie[] | null;
@@ -15,13 +16,14 @@ const useGetTrendingMovies = () => {
     isPending: false,
   });
 
-  const url = 'https://api.themoviedb.org/3/movie/popular';
+  console.log('Config.BASE_URL', Config.BASE_URL);
+
+  const url = `${Config.BASE_URL}/3/movie/popular`;
   const options = {
     method: 'GET',
     headers: {
       accept: 'application/json',
-      Authorization:
-        'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI1NjA3ZmYxOTc0ZTRiMDU4ZmM1MDcyZGQ1ZTE1MDUwZSIsInN1YiI6IjY1ZDRmYWRmMjNkMjc4MDE3Y2Y1MjQ2NyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UHcdC5iToRa0Dxq7Qep5UEgFD6adQTicMpLt_TmbfnU',
+      Authorization: `Bearer ${Config.TMDB_API_KEY}`,
     },
   };
 
@@ -29,8 +31,8 @@ const useGetTrendingMovies = () => {
     queryKey: ['repoData'],
     queryFn: () => fetch(url, options).then(res => res.json()),
     // TODO: Change this to the actual expected data
-    select: data =>
-      data.results.map((movie: any) => ({
+    select: response =>
+      response.results.map((movie: Movie) => ({
         id: movie.id,
         title: movie.title,
         vote_average: movie.vote_average,
