@@ -29,7 +29,7 @@ function AppNavigator() {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          tabBarActiveTintColor: Colors.tabActive,
+          tabBarActiveTintColor: Colors.primary,
           tabBarInactiveTintColor: Colors.white,
           tabBarStyle: {
             backgroundColor: Colors.tabBackground,

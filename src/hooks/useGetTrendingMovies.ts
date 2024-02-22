@@ -36,6 +36,8 @@ const useGetTrendingMovies = () => {
         id: movie.id,
         title: movie.title,
         vote_average: movie.vote_average,
+        poster_path: movie.poster_path,
+        genre_ids: movie.genre_ids,
       })) as Movie[],
   });
 
