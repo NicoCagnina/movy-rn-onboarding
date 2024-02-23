@@ -1,7 +1,8 @@
+import Config from 'react-native-config';
 import {MovieGenres} from '../types/movies';
 
 export const getImageUrl = (path: string) => {
-  return `https://image.tmdb.org/t/p/original${path}`;
+  return Config.IMAGE_URL + path;
 };
 
 export const getGenreText = (genreId: number): string | undefined => {
