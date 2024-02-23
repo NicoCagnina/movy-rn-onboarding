@@ -28,7 +28,6 @@ const useGetTrendingMovies = () => {
   const {data, error, isLoading} = useQuery({
     queryKey: ['repoData'],
     queryFn: () => fetch(url, options).then(res => res.json()),
-    // TODO: Change this to the actual expected data
     select: response =>
       response.results.map((movie: Movie) => ({
         id: movie.id,

@@ -2,16 +2,22 @@ import React from 'react';
 import RoundSeparatorIcon from '../../assets/icons/RoundSeparatorIcon';
 import {Text, View} from 'react-native';
 import {styles} from './styles';
-import {getGenreText} from '../../utils/moviesUtils';
+import useGetMovieTypes from '../../hooks/useGetTypes';
 
 interface Props {
   ids: number[];
 }
 
 const GenreList = ({ids}: Props) => {
+  const {data} = useGetMovieTypes();
+
+  const genreIds = data?.genres.filter(type => ids.includes(type.id)) || [];
+
+  const genres = genreIds.map(type => type.name);
+
   return (
     <View style={styles.genreContainer}>
-      {ids.slice(0, 3).map((genre, index) => {
+      {genres.slice(0, 3).map((genre: string, index: number) => {
         return (
           <View key={genre} style={styles.genreAndSeparator}>
             {index > 0 && index <= 2 && (
@@ -20,7 +26,7 @@ const GenreList = ({ids}: Props) => {
               </View>
             )}
             <Text key={index} style={styles.genreText}>
-              {getGenreText(genre)}
+              {genre}
             </Text>
           </View>
         );

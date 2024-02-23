@@ -19,7 +19,7 @@ const HomeScreen = () => {
   }, [data]);
 
   if (error) {
-    return <Text>An error occurrred: {error}</Text>;
+    return <Text>An error occurred: {error}</Text>;
   }
 
   if (isLoading) {
