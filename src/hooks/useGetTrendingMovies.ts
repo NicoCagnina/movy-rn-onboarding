@@ -16,9 +16,7 @@ const useGetTrendingMovies = () => {
     isPending: false,
   });
 
-  console.log('Config.BASE_URL', Config.BASE_URL);
-
-  const url = `${Config.BASE_URL}/3/movie/popular`;
+  const url = `${Config.BASE_URL}/movie/popular`;
   const options = {
     method: 'GET',
     headers: {

@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, StyleSheet, Text, View} from 'react-native';
+import {ActivityIndicator, Text, View} from 'react-native';
 import useGetTrendingMovies from '../../hooks/useGetTrendingMovies';
 import Colors from '../../types/colors';
 import HomeScreenHero from '../../components/home-hero';
 import MovyLogoIcon from '../../assets/icons/MovyLogoIcon';
 import {Movie} from '../../types/movies';
+import {styles} from './styles';
 
 const HomeScreen = () => {
   const {data, error, isLoading} = useGetTrendingMovies();
@@ -12,12 +13,13 @@ const HomeScreen = () => {
 
   useEffect(() => {
     if (data) {
-      setHighlightedMovie(data[2]);
+      const randomMovie = Math.floor(Math.random() * 21);
+      setHighlightedMovie(data[randomMovie]);
     }
   }, [data]);
 
   if (error) {
-    return <Text>An error occurred: {error}</Text>;
+    return <Text>An error occurrred: {error}</Text>;
   }
 
   if (isLoading) {
@@ -42,22 +44,5 @@ const HomeScreen = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    backgroundColor: Colors.black,
-    height: '100%',
-  },
-  movyLogoIconContainer: {
-    top: 20,
-    position: 'absolute',
-    zIndex: 1,
-  },
-  activityIndicator: {
-    marginTop: '50%',
-  },
-});
 
 export default HomeScreen;
