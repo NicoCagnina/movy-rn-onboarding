@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, Text, View} from 'react-native';
+import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {Movie} from '../../types/movies';
 import {getImageUrl} from '../../utils/moviesUtils';
 import Colors from '../../types/colors';
@@ -9,14 +9,24 @@ import AddToListIcon from '../../assets/icons/AddListIcon';
 import GenreList from '../genre-list';
 import ActionButton from '../action-button';
 import {styles} from './styles';
+import {StackNavigation} from '../../types/navigation';
+import {useNavigation} from '@react-navigation/native';
+import {NavigationScreens} from '../../types/NavigationScreens';
 
 const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
+  const navigation = useNavigation<StackNavigation>();
   if (!movie) {
     return null;
   }
 
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() =>
+        navigation.navigate(NavigationScreens.MovieDetails, {
+          id: movie.id,
+        })
+      }>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
@@ -38,7 +48,7 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <ActionButton icon={<PlayIcon fill={Colors.white} />} text="Play" />
         <ActionButton icon={<InfoIcon fill={Colors.white} />} text="Info" />
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
