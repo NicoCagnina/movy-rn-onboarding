@@ -17,17 +17,17 @@ const GenreList = ({ids}: Props) => {
 
   return (
     <View style={styles.genreContainer}>
-      {genres.slice(0, 3).map((genre: string, index: number) => {
+      {genres.map((genre: string, index: number) => {
         return (
           <View key={genre} style={styles.genreAndSeparator}>
-            {index > 0 && index <= 2 && (
+            <Text key={index} style={styles.genreText}>
+              {genre}
+            </Text>
+            {index >= 0 && index <= genres.length - 2 && (
               <View key={genre} style={styles.genreSeparator}>
                 <RoundSeparatorIcon width={10} height={10} />
               </View>
             )}
-            <Text key={index} style={styles.genreText}>
-              {genre}
-            </Text>
           </View>
         );
       })}
