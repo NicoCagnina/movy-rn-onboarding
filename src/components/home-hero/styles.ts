@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
   movyOriginalContainer: {
     backgroundColor: Colors.movyOriginalBackground,
     paddingHorizontal: 40,
-    paddingVertical: 3,
+    paddingVertical: 4,
     marginTop: 15,
     borderRadius: 5,
   },
