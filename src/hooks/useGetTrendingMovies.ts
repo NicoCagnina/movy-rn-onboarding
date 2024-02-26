@@ -16,9 +16,7 @@ const useGetTrendingMovies = () => {
     isPending: false,
   });
 
-  console.log('Config.BASE_URL', Config.BASE_URL);
-
-  const url = `${Config.BASE_URL}/3/movie/popular`;
+  const url = `${Config.BASE_URL}/movie/popular`;
   const options = {
     method: 'GET',
     headers: {
@@ -30,12 +28,13 @@ const useGetTrendingMovies = () => {
   const {data, error, isLoading} = useQuery({
     queryKey: ['repoData'],
     queryFn: () => fetch(url, options).then(res => res.json()),
-    // TODO: Change this to the actual expected data
     select: response =>
       response.results.map((movie: Movie) => ({
         id: movie.id,
         title: movie.title,
         vote_average: movie.vote_average,
+        poster_path: movie.poster_path,
+        genre_ids: movie.genre_ids,
       })) as Movie[],
   });
 
