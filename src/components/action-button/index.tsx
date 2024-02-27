@@ -5,13 +5,14 @@ import {styles} from './styles';
 interface Props {
   icon: React.ReactNode;
   text: string;
+  onPress: () => void;
 }
 
-const ActionButton = (props: Props) => {
+const ActionButton = ({icon, text, onPress}: Props) => {
   return (
-    <TouchableOpacity style={styles.iconWithText} onPress={() => {}}>
-      {props.icon}
-      <Text style={styles.whiteText}>{props.text}</Text>
+    <TouchableOpacity style={styles.iconWithText} onPress={onPress}>
+      {icon}
+      <Text style={styles.whiteText}>{text}</Text>
     </TouchableOpacity>
   );
 };

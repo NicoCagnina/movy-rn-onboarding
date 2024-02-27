@@ -3,25 +3,24 @@ import Colors from '../../types/colors';
 
 export const styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'relative',
     alignItems: 'center',
     backgroundColor: Colors.black,
-    height: '100%',
-    width: '100%',
   },
   movyLogoIconContainer: {
     top: 50,
   },
   heroImg: {
     width: '100%',
-    height: '80%',
+    height: '100%',
     position: 'absolute',
     opacity: 0.8,
   },
   heroBlur: {
     position: 'absolute',
     width: '100%',
-    height: '80%',
+    height: '100%',
   },
   whiteText: {
     color: Colors.white,
@@ -42,7 +41,8 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '70%',
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom: 10,
     gap: 50,
   },
 });

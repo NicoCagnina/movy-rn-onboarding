@@ -44,9 +44,22 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <ActionButton
           icon={<AddToListIcon fill={Colors.white} height={42} />}
           text="My List"
+          onPress={() => {}}
         />
-        <ActionButton icon={<PlayIcon fill={Colors.white} />} text="Play" />
-        <ActionButton icon={<InfoIcon fill={Colors.white} />} text="Info" />
+        <ActionButton
+          icon={<PlayIcon fill={Colors.white} />}
+          text="Play"
+          onPress={() => {}}
+        />
+        <ActionButton
+          icon={<InfoIcon fill={Colors.white} />}
+          text="Info"
+          onPress={() => {
+            navigation.navigate(NavigationScreens.MovieDetails, {
+              id: movie.id,
+            });
+          }}
+        />
       </View>
     </TouchableOpacity>
   );

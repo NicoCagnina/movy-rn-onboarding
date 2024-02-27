@@ -7,11 +7,15 @@ export const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     backgroundColor: Colors.black,
     height: '100%',
+    width: '100%',
   },
   movyLogoIconContainer: {
     top: 20,
     position: 'absolute',
     zIndex: 1,
+  },
+  flatlistStyle: {
+    width: '100%',
   },
   activityIndicator: {
     marginTop: '50%',
