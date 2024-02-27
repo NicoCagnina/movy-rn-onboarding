@@ -76,11 +76,8 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignSelf: 'flex-start',
   },
-  similarMovies: {
-    color: Colors.white,
-    fontSize: 24,
-    marginTop: 30,
-    fontWeight: '700',
+  footer: {
+    paddingBottom: 50,
   },
 });
 

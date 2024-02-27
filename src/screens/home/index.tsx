@@ -7,6 +7,7 @@ import MovyLogoIcon from '../../assets/icons/MovyLogoIcon';
 import {Movie} from '../../types/movies';
 import {styles} from './styles';
 import ListedMovies from '../../components/listed-movies';
+import {useMovieContext} from '../../context/moviesContext';
 
 interface HeaderComponentProps {
   isLoading: boolean;
@@ -27,6 +28,7 @@ const HeaderComponent = ({
 
 const HomeScreen = () => {
   const {data, error, isLoading} = useGetTrendingMovies();
+  const {addMovies} = useMovieContext();
   const [highlightedMovie, setHighlightedMovie] = useState<Movie | null>(null);
   const sections = ['My List', 'Trending Now', 'Recently Added'];
 
@@ -34,6 +36,7 @@ const HomeScreen = () => {
     if (data) {
       const randomMovie = Math.floor(Math.random() * 21);
       setHighlightedMovie(data[randomMovie]);
+      addMovies(data);
     }
   }, [data]);
 
@@ -70,7 +73,6 @@ const HomeScreen = () => {
         renderItem={({item, index}) => (
           <ListedMovies
             key={item}
-            movies={data}
             title={
               index === 0
                 ? 'My List'
@@ -80,7 +82,7 @@ const HomeScreen = () => {
             }
           />
         )}
-        keyExtractor={(item, index) => index.toString()}
+        keyExtractor={item => item.toString()}
       />
     </View>
   );

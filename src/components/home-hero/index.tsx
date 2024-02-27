@@ -12,9 +12,11 @@ import {styles} from './styles';
 import {StackNavigation} from '../../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationScreens} from '../../types/NavigationScreens';
+import {useMovieContext} from '../../context/moviesContext';
 
 const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
   const navigation = useNavigation<StackNavigation>();
+  const {selectMovie} = useMovieContext();
   if (!movie) {
     return null;
   }
@@ -22,11 +24,10 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
   return (
     <TouchableOpacity
       style={styles.container}
-      onPress={() =>
-        navigation.navigate(NavigationScreens.MovieDetails, {
-          id: movie.id,
-        })
-      }>
+      onPress={() => {
+        selectMovie(movie.id);
+        navigation.navigate(NavigationScreens.MovieDetails);
+      }}>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
@@ -55,9 +56,8 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
           icon={<InfoIcon fill={Colors.white} />}
           text="Info"
           onPress={() => {
-            navigation.navigate(NavigationScreens.MovieDetails, {
-              id: movie.id,
-            });
+            selectMovie(movie.id);
+            navigation.navigate(NavigationScreens.MovieDetails);
           }}
         />
       </View>

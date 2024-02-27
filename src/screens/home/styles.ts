@@ -8,6 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.black,
     height: '100%',
     width: '100%',
+    paddingBottom: 5,
   },
   movyLogoIconContainer: {
     top: 20,

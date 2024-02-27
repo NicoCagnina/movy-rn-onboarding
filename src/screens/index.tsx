@@ -11,7 +11,7 @@ import HomeIcon from '../assets/icons/HomeIcon';
 import LeftArrowIcon from '../assets/icons/LeftArrowIcon';
 import MyListIcon from '../assets/icons/MyList';
 import SearchIcon from '../assets/icons/SearchIcon';
-import {SafeAreaView} from 'react-native';
+import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import MovieDetailsScreen from './movie-details';
 import {NavigationScreens} from '../types/NavigationScreens';
@@ -39,6 +39,7 @@ const renderLeftArrowIcon = (color: string) => (
     style={styles.backButton}
   />
 );
+
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -91,14 +92,20 @@ function AppNavigator() {
           <Stack.Screen
             name={NavigationScreens.MovieDetails}
             component={MovieDetailsScreen}
-            options={{
+            options={({navigation}) => ({
               headerTitle: 'Movie Details',
+              headerTitleAlign: 'center',
               headerStyle: styles.headerStyle,
               headerTitleStyle: styles.headerTitleStyle,
               headerTintColor: Colors.white,
               headerBackTitleVisible: false,
-              headerBackImage: () => renderLeftArrowIcon(Colors.white),
-            }}
+              headerLeft: () => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(NavigationScreens.Home)}>
+                  {renderLeftArrowIcon(Colors.white)}
+                </TouchableOpacity>
+              ),
+            })}
           />
         </Stack.Navigator>
       </NavigationContainer>

@@ -1,4 +1,6 @@
-export const styles = {
+import {StyleSheet} from 'react-native';
+
+export const styles = StyleSheet.create({
   safeArea: {
     backgroundColor: 'black',
     flex: 1,
@@ -16,4 +18,4 @@ export const styles = {
   headerBackTitleStyle: {
     display: 'none',
   },
-};
+});

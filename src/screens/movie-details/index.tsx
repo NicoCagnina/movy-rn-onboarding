@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react';
-import {useRoute} from '@react-navigation/native';
 import {
   ActivityIndicator,
   FlatList,
@@ -10,12 +9,13 @@ import {
 } from 'react-native';
 import useGetMovieDetails from '../../hooks/useGetMovieDetails';
 import Colors from '../../types/colors';
-import {RouteProps} from '../../types/navigation';
 import {getImageUrl, getMovieApprovalPercentage} from '../../utils/moviesUtils';
 import styles from './styles';
 import MovyLogoIcon from '../../assets/icons/MovyLogoIcon';
 import ActionButton from '../../components/action-button';
 import AddToListIcon from '../../assets/icons/AddListIcon';
+import ListedMovies from '../../components/listed-movies';
+import {useMovieContext} from '../../context/moviesContext';
 
 interface HeaderProps {
   isLoading: boolean;
@@ -28,15 +28,12 @@ const HeaderComponent = ({isLoading}: HeaderProps) => {
 };
 
 const MovieDetailsScreen = () => {
-  const route = useRoute<RouteProps>();
-  const {params} = route;
-  const id = params!.id;
-  const {data, error, isLoading} = useGetMovieDetails(id);
+  const {selectedMovie} = useMovieContext();
+  const {data, error, isLoading} = useGetMovieDetails(selectedMovie!);
   const [contentLoading, setContentLoading] = useState(isLoading);
   const formattedDate = data?.release_date.slice(0, 4);
 
   useEffect(() => {
-    console.log({isLoading, data});
     setContentLoading(isLoading);
   }, [isLoading]);
 
@@ -57,6 +54,7 @@ const MovieDetailsScreen = () => {
       style={styles.container}
       ListHeaderComponent={<HeaderComponent isLoading={contentLoading} />}
       data={[data]}
+      ListFooterComponent={<View style={styles.footer} />}
       renderItem={({item}) => (
         <View>
           <Image
@@ -83,9 +81,10 @@ const MovieDetailsScreen = () => {
               <ActionButton
                 icon={<AddToListIcon fill={Colors.white} height={42} />}
                 text="My List"
+                onPress={() => {}}
               />
             </View>
-            <Text style={styles.similarMovies}>Similar movies</Text>
+            <ListedMovies title="Similar Movies" />
           </View>
         </View>
       )}
