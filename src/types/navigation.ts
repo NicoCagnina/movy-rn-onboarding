@@ -1,9 +1,19 @@
-import {NavigationProp} from '@react-navigation/native';
+import {NavigationProp, RouteProp} from '@react-navigation/native';
 
-export type RootStackParamList = {
+export type RootTabParamList = {
   Home: undefined;
   MyList: undefined;
   Search: undefined;
 };
 
-export type NavigationType = NavigationProp<RootStackParamList>;
+export type RootStackParamList = {
+  TabNavigator: undefined;
+  MovieDetails: {
+    id: number;
+  };
+};
+
+export type StackNavigation = NavigationProp<RootStackParamList>;
+export type RouteProps = RouteProp<RootStackParamList>;
+
+export type NavigationType = NavigationProp<RootTabParamList>;

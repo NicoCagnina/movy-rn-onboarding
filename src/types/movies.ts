@@ -19,3 +19,11 @@ export interface MovieGenre {
   id: number;
   name: string;
 }
+export interface MovieDetails {
+  adult: boolean;
+  name: string;
+  poster_path: string;
+  vote_average: number;
+  release_date: string;
+  overview: string;
+}
