@@ -1,23 +1,49 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useRoute} from '@react-navigation/native';
-import {ActivityIndicator, Image, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  Image,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import useGetMovieDetails from '../../hooks/useGetMovieDetails';
 import Colors from '../../types/colors';
 import {RouteProps} from '../../types/navigation';
-import {getImageUrl} from '../../utils/moviesUtils';
+import {getImageUrl, getMovieApprovalPercentage} from '../../utils/moviesUtils';
 import styles from './styles';
+import MovyLogoIcon from '../../assets/icons/MovyLogoIcon';
+import ActionButton from '../../components/action-button';
+import AddToListIcon from '../../assets/icons/AddListIcon';
+
+interface HeaderProps {
+  isLoading: boolean;
+}
+
+const HeaderComponent = ({isLoading}: HeaderProps) => {
+  if (isLoading) {
+    return <ActivityIndicator size="large" color={Colors.primary} />;
+  }
+};
 
 const MovieDetailsScreen = () => {
   const route = useRoute<RouteProps>();
   const {params} = route;
   const id = params!.id;
   const {data, error, isLoading} = useGetMovieDetails(id);
-  const [imageLoading, setImageLoading] = useState(true);
+  const [contentLoading, setContentLoading] = useState(isLoading);
+  const formattedDate = data?.release_date.slice(0, 4);
 
-  if (isLoading || !data) {
+  useEffect(() => {
+    console.log({isLoading, data});
+    setContentLoading(isLoading);
+  }, [isLoading]);
+
+  if (contentLoading || !data) {
     return (
-      <View style={[styles.container]}>
-        <ActivityIndicator size={80} color={Colors.primary} />
+      <View style={styles.activityIndicator}>
+        <ActivityIndicator size={'large'} color={Colors.primary} />
       </View>
     );
   }
@@ -27,21 +53,44 @@ const MovieDetailsScreen = () => {
   }
 
   return (
-    <View>
-      {imageLoading && (
-        <ActivityIndicator size="large" color={Colors.primary} />
+    <FlatList
+      style={styles.container}
+      ListHeaderComponent={<HeaderComponent isLoading={contentLoading} />}
+      data={[data]}
+      renderItem={({item}) => (
+        <View>
+          <Image
+            source={{uri: getImageUrl(item.poster_path)}}
+            resizeMode="cover"
+            onLoadEnd={() => setContentLoading(false)}
+            style={styles.moviePoster}
+          />
+          <View style={styles.contentContainer}>
+            <MovyLogoIcon fill={Colors.primary} />
+            <Text style={styles.movieTitle}>{item.title}</Text>
+            <View style={styles.movieDetailsContainer}>
+              <Text style={styles.movieApproval}>
+                {getMovieApprovalPercentage(item.vote_average)} Approval
+              </Text>
+              <Text style={styles.movieDate}>{formattedDate}</Text>
+              {!item.adult && <Text style={styles.movieAge}>For all ages</Text>}
+            </View>
+            <TouchableOpacity style={styles.watchTrailerTouchable}>
+              <Text style={styles.watchTrailerText}>Watch Trailer</Text>
+            </TouchableOpacity>
+            <Text style={styles.overview}>{item.overview}</Text>
+            <View style={styles.addToListContainer}>
+              <ActionButton
+                icon={<AddToListIcon fill={Colors.white} height={42} />}
+                text="My List"
+              />
+            </View>
+            <Text style={styles.similarMovies}>Similar movies</Text>
+          </View>
+        </View>
       )}
-      <Image
-        source={{uri: getImageUrl(data.poster_path)}}
-        height={300}
-        onLoadEnd={() => setImageLoading(false)}
-      />
-      <Text>{data.name}</Text>
-      <Text>{data.adult}</Text>
-      <Text>{data.overview}</Text>
-      <Text>{data.release_date}</Text>
-      <Text>{data.vote_average}</Text>
-    </View>
+      keyExtractor={item => item.id.toString()}
+    />
   );
 };
 

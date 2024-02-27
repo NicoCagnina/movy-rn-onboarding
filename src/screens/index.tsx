@@ -8,6 +8,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {RootStackParamList, RootTabParamList} from '../types/navigation';
 import Colors from '../types/colors';
 import HomeIcon from '../assets/icons/HomeIcon';
+import LeftArrowIcon from '../assets/icons/LeftArrowIcon';
 import MyListIcon from '../assets/icons/MyList';
 import SearchIcon from '../assets/icons/SearchIcon';
 import {SafeAreaView} from 'react-native';
@@ -30,6 +31,14 @@ const renderSearchIcon = (color: string) => (
   <SearchIcon fill={color} width={32} height={32} />
 );
 
+const renderLeftArrowIcon = (color: string) => (
+  <LeftArrowIcon
+    stroke={color}
+    width={32}
+    height={32}
+    style={styles.backButton}
+  />
+);
 const TabNavigator = () => {
   return (
     <Tab.Navigator
@@ -82,6 +91,14 @@ function AppNavigator() {
           <Stack.Screen
             name={NavigationScreens.MovieDetails}
             component={MovieDetailsScreen}
+            options={{
+              headerTitle: 'Movie Details',
+              headerStyle: styles.headerStyle,
+              headerTitleStyle: styles.headerTitleStyle,
+              headerTintColor: Colors.white,
+              headerBackTitleVisible: false,
+              headerBackImage: () => renderLeftArrowIcon(Colors.white),
+            }}
           />
         </Stack.Navigator>
       </NavigationContainer>
