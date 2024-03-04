@@ -15,7 +15,4 @@ export const styles = StyleSheet.create({
   headerTitleStyle: {
     fontSize: 20,
   },
-  headerBackTitleStyle: {
-    display: 'none',
-  },
 });

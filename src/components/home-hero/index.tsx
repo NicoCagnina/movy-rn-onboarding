@@ -21,13 +21,13 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
     return null;
   }
 
+  const selectPressedMovie = () => {
+    selectMovie(movie.id);
+    navigation.navigate(NavigationScreens.MovieDetails);
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() => {
-        selectMovie(movie.id);
-        navigation.navigate(NavigationScreens.MovieDetails);
-      }}>
+    <TouchableOpacity style={styles.container} onPress={selectPressedMovie}>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
@@ -55,10 +55,7 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <ActionButton
           icon={<InfoIcon fill={Colors.white} />}
           text="Info"
-          onPress={() => {
-            selectMovie(movie.id);
-            navigation.navigate(NavigationScreens.MovieDetails);
-          }}
+          onPress={selectPressedMovie}
         />
       </View>
     </TouchableOpacity>

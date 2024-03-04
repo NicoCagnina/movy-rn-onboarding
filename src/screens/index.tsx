@@ -31,6 +31,10 @@ const renderSearchIcon = (color: string) => (
   <SearchIcon fill={color} width={32} height={32} />
 );
 
+const navigateToHome = (navigation: any) => {
+  navigation.navigate(NavigationScreens.Home);
+};
+
 const renderLeftArrowIcon = (color: string) => (
   <LeftArrowIcon
     stroke={color}
@@ -100,8 +104,7 @@ function AppNavigator() {
               headerTintColor: Colors.white,
               headerBackTitleVisible: false,
               headerLeft: () => (
-                <TouchableOpacity
-                  onPress={() => navigation.navigate(NavigationScreens.Home)}>
+                <TouchableOpacity onPress={() => navigateToHome(navigation)}>
                   {renderLeftArrowIcon(Colors.white)}
                 </TouchableOpacity>
               ),

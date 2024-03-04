@@ -71,16 +71,7 @@ const HomeScreen = () => {
         }
         data={sections}
         renderItem={({item, index}) => (
-          <ListedMovies
-            key={item}
-            title={
-              index === 0
-                ? 'My List'
-                : index === 1
-                ? 'Trending Now'
-                : 'Recently Added'
-            }
-          />
+          <ListedMovies key={item} title={sections[index]} />
         )}
         keyExtractor={item => item.toString()}
       />

@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 20,
     height: 40,
+    marginBottom: 20,
   },
   movieApproval: {
     color: Colors.approvalGreen,

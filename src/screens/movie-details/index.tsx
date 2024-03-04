@@ -16,6 +16,7 @@ import ActionButton from '../../components/action-button';
 import AddToListIcon from '../../assets/icons/AddListIcon';
 import ListedMovies from '../../components/listed-movies';
 import {useMovieContext} from '../../context/moviesContext';
+import {MovieDetails} from '../../types/movies';
 
 interface HeaderProps {
   isLoading: boolean;
@@ -37,6 +38,42 @@ const MovieDetailsScreen = () => {
     setContentLoading(isLoading);
   }, [isLoading]);
 
+  const renderMovieDetails = (item: MovieDetails) => {
+    return (
+      <View>
+        <Image
+          source={{uri: getImageUrl(item.poster_path)}}
+          resizeMode="cover"
+          onLoadEnd={() => setContentLoading(false)}
+          style={styles.moviePoster}
+        />
+        <View style={styles.contentContainer}>
+          <MovyLogoIcon fill={Colors.primary} />
+          <Text style={styles.movieTitle}>{item.title}</Text>
+          <View style={styles.movieDetailsContainer}>
+            <Text style={styles.movieApproval}>
+              {getMovieApprovalPercentage(item.vote_average)} Approval
+            </Text>
+            <Text style={styles.movieDate}>{formattedDate}</Text>
+            {!item.adult && <Text style={styles.movieAge}>For all ages</Text>}
+          </View>
+          <TouchableOpacity style={styles.watchTrailerTouchable}>
+            <Text style={styles.watchTrailerText}>Watch Trailer</Text>
+          </TouchableOpacity>
+          <Text style={styles.overview}>{item.overview}</Text>
+          <View style={styles.addToListContainer}>
+            <ActionButton
+              icon={<AddToListIcon fill={Colors.white} height={42} />}
+              text="My List"
+              onPress={() => {}}
+            />
+          </View>
+          <ListedMovies title="Similar Movies" />
+        </View>
+      </View>
+    );
+  };
+
   if (contentLoading || !data) {
     return (
       <View style={styles.activityIndicator}>
@@ -55,39 +92,7 @@ const MovieDetailsScreen = () => {
       ListHeaderComponent={<HeaderComponent isLoading={contentLoading} />}
       data={[data]}
       ListFooterComponent={<View style={styles.footer} />}
-      renderItem={({item}) => (
-        <View>
-          <Image
-            source={{uri: getImageUrl(item.poster_path)}}
-            resizeMode="cover"
-            onLoadEnd={() => setContentLoading(false)}
-            style={styles.moviePoster}
-          />
-          <View style={styles.contentContainer}>
-            <MovyLogoIcon fill={Colors.primary} />
-            <Text style={styles.movieTitle}>{item.title}</Text>
-            <View style={styles.movieDetailsContainer}>
-              <Text style={styles.movieApproval}>
-                {getMovieApprovalPercentage(item.vote_average)} Approval
-              </Text>
-              <Text style={styles.movieDate}>{formattedDate}</Text>
-              {!item.adult && <Text style={styles.movieAge}>For all ages</Text>}
-            </View>
-            <TouchableOpacity style={styles.watchTrailerTouchable}>
-              <Text style={styles.watchTrailerText}>Watch Trailer</Text>
-            </TouchableOpacity>
-            <Text style={styles.overview}>{item.overview}</Text>
-            <View style={styles.addToListContainer}>
-              <ActionButton
-                icon={<AddToListIcon fill={Colors.white} height={42} />}
-                text="My List"
-                onPress={() => {}}
-              />
-            </View>
-            <ListedMovies title="Similar Movies" />
-          </View>
-        </View>
-      )}
+      renderItem={({item}) => renderMovieDetails(item)}
       keyExtractor={item => item.id.toString()}
     />
   );
