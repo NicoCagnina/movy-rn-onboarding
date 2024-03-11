@@ -17,17 +17,18 @@ import {useMovieContext} from '../../context/moviesContext';
 const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
   const navigation = useNavigation<StackNavigation>();
   const {selectMovie} = useMovieContext();
+
   if (!movie) {
     return null;
   }
 
-  const selectPressedMovie = () => {
+  const onPressMovie = () => {
     selectMovie(movie.id);
     navigation.navigate(NavigationScreens.MovieDetails);
   };
 
   return (
-    <TouchableOpacity style={styles.container} onPress={selectPressedMovie}>
+    <TouchableOpacity style={styles.container} onPress={onPressMovie}>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
@@ -55,7 +56,7 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <ActionButton
           icon={<InfoIcon fill={Colors.white} />}
           text="Info"
-          onPress={selectPressedMovie}
+          onPress={onPressMovie}
         />
       </View>
     </TouchableOpacity>
