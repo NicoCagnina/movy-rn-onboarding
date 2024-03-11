@@ -20,8 +20,9 @@ export interface MovieGenre {
   name: string;
 }
 export interface MovieDetails {
+  id: number;
   adult: boolean;
-  name: string;
+  title: string;
   poster_path: string;
   vote_average: number;
   release_date: string;

@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     maxWidth: '80%',
-    marginTop: '95%',
+    marginTop: '90%',
     maxHeight: 100,
     flexWrap: 'wrap',
     gap: 10,

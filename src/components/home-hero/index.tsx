@@ -12,21 +12,22 @@ import {styles} from './styles';
 import {StackNavigation} from '../../types/navigation';
 import {useNavigation} from '@react-navigation/native';
 import {NavigationScreens} from '../../types/NavigationScreens';
+import {useMovieContext} from '../../context/moviesContext';
 
 const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
   const navigation = useNavigation<StackNavigation>();
+  const {selectMovie} = useMovieContext();
   if (!movie) {
     return null;
   }
 
+  const selectPressedMovie = () => {
+    selectMovie(movie.id);
+    navigation.navigate(NavigationScreens.MovieDetails);
+  };
+
   return (
-    <TouchableOpacity
-      style={styles.container}
-      onPress={() =>
-        navigation.navigate(NavigationScreens.MovieDetails, {
-          id: movie.id,
-        })
-      }>
+    <TouchableOpacity style={styles.container} onPress={selectPressedMovie}>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
@@ -44,9 +45,18 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <ActionButton
           icon={<AddToListIcon fill={Colors.white} height={42} />}
           text="My List"
+          onPress={() => {}}
         />
-        <ActionButton icon={<PlayIcon fill={Colors.white} />} text="Play" />
-        <ActionButton icon={<InfoIcon fill={Colors.white} />} text="Info" />
+        <ActionButton
+          icon={<PlayIcon fill={Colors.white} />}
+          text="Play"
+          onPress={() => {}}
+        />
+        <ActionButton
+          icon={<InfoIcon fill={Colors.white} />}
+          text="Info"
+          onPress={selectPressedMovie}
+        />
       </View>
     </TouchableOpacity>
   );

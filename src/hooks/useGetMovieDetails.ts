@@ -28,15 +28,16 @@ const useGetMovieDetails = (id: number) => {
   const {data, error, isLoading} = useQuery({
     queryKey: ['movieDetails'],
     queryFn: () => fetch(url, options).then(res => res.json()),
-    select: (data: MovieDetails) => {
+    select: (item: MovieDetails) => {
       return {
-        overview: data.overview,
-        name: data.name,
-        poster_path: data.poster_path,
-        vote_average: data.vote_average,
-        adult: data.adult,
-        release_date: data.release_date,
-      } as MovieDetails;
+        id: item.id,
+        overview: item.overview,
+        title: item.title,
+        poster_path: item.poster_path,
+        vote_average: item.vote_average,
+        adult: item.adult,
+        release_date: item.release_date,
+      };
     },
   });
 

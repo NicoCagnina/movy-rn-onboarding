@@ -1,13 +1,16 @@
 import React from 'react';
 import AppNavigator from './src/screens';
 import {QueryClientProvider, QueryClient} from '@tanstack/react-query';
+import {MovieProvider} from './src/context/moviesContext';
 
 const queryClient = new QueryClient();
 
 function App(): React.JSX.Element {
   return (
     <QueryClientProvider client={queryClient}>
-      <AppNavigator />
+      <MovieProvider>
+        <AppNavigator />
+      </MovieProvider>
     </QueryClientProvider>
   );
 }
