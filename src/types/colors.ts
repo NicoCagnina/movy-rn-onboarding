@@ -7,6 +7,8 @@ const Colors = {
   approvalGreen: '#00FF00',
   allAgesBackground: '#878787',
   allAgesText: '#313131',
+  darkGray: '#171717',
+  softBlack: '#0F0F0F',
 };
 
 export default Colors;

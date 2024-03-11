@@ -6,6 +6,7 @@ interface MovieContextType {
   addMovies: (moviesToAdd: Movie[]) => void;
   selectedMovie: number | null;
   selectMovie: (id: number) => void;
+  filteredMovies: (movie: string) => Movie[];
 }
 
 const MovieContext = createContext<MovieContextType | undefined>(undefined);
@@ -30,9 +31,17 @@ export const MovieProvider = ({children}: {children: React.ReactNode}) => {
     setSelectedMovie(id);
   };
 
+  const filteredMovies = (movie: string) => {
+    const filtered = movies.filter(m =>
+      m.title.toLowerCase().includes(movie.toLowerCase()),
+    );
+    const uniqueMap = new Map(filtered.map(m => [m.title, m]));
+
+    return Array.from(uniqueMap.values());
+  };
   return (
     <MovieContext.Provider
-      value={{movies, addMovies, selectMovie, selectedMovie}}>
+      value={{movies, addMovies, selectMovie, selectedMovie, filteredMovies}}>
       {children}
     </MovieContext.Provider>
   );
