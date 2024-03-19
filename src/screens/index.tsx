@@ -70,10 +70,21 @@ const TabNavigator = () => {
       <Tab.Screen
         name={NavigationScreens.MyList}
         component={MyListScreen}
-        options={{
+        options={({navigation}) => ({
           tabBarShowLabel: false,
           tabBarIcon: ({color}) => renderMyListIcon(color),
-        }}
+          headerShown: true,
+          headerTitle: 'My list',
+          headerTitleAlign: 'center',
+          headerStyle: styles.headerStyle,
+          headerTitleStyle: styles.headerTitleStyle,
+          headerTintColor: Colors.white,
+          headerLeft: () => (
+            <TouchableOpacity onPress={() => navigation.goBack()}>
+              {renderLeftArrowIcon(Colors.white)}
+            </TouchableOpacity>
+          ),
+        })}
       />
     </Tab.Navigator>
   );
