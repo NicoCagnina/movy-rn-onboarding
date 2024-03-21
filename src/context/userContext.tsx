@@ -1,8 +1,8 @@
 import React, {createContext, useContext, useState} from 'react';
 
 interface UserContextType {
-  email: string;
-  setUserEmail: (email: string) => void;
+  isSignedIn: boolean;
+  toggleUserIsSignedIn: () => void;
   favorites: number[] | null;
   addFavorites: (moviesToAdd: number[]) => void;
 }
@@ -18,20 +18,20 @@ export const useUserContext = () => {
 };
 
 export const UserProvider = ({children}: {children: React.ReactNode}) => {
-  const [email, setEmail] = useState('');
+  const [isSignedIn, setIsSignedIn] = useState(false);
   const [favorites, setFavorites] = useState<number[]>([]);
 
   const addFavorites = (moviesToAdd: number[]) => {
     setFavorites(prevFavorites => [...prevFavorites, ...moviesToAdd]);
   };
 
-  const setUserEmail = (email: string) => {
-    setEmail(email);
+  const toggleUserIsSignedIn = () => {
+    setIsSignedIn(!isSignedIn);
   };
 
   return (
     <UserContext.Provider
-      value={{email, setUserEmail, favorites, addFavorites}}>
+      value={{isSignedIn, toggleUserIsSignedIn, favorites, addFavorites}}>
       {children}
     </UserContext.Provider>
   );
