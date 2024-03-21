@@ -15,6 +15,7 @@ import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import MovieDetailsScreen from './movie-details';
 import {NavigationScreens} from '../types/NavigationScreens';
+import LoginScreen from './login';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -53,7 +54,7 @@ const TabNavigator = () => {
       }}>
       <Tab.Screen
         name={NavigationScreens.Home}
-        component={HomeScreen}
+        component={LoginScreen} // TODO: replace this with HomeScreen
         options={{
           tabBarShowLabel: false,
           tabBarIcon: ({color}) => renderHomeIcon(color),
