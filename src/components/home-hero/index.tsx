@@ -2,10 +2,6 @@ import React from 'react';
 import {Image, Text, TouchableOpacity, View} from 'react-native';
 import {Movie} from '../../types/movies';
 import {getImageUrl} from '../../utils/moviesUtils';
-import Colors from '../../types/colors';
-import PlayIcon from '../../assets/icons/PlayIcon';
-import InfoIcon from '../../assets/icons/InfoIcon';
-import AddToListIcon from '../../assets/icons/AddListIcon';
 import GenreList from '../genre-list';
 import ActionButton from '../action-button';
 import {styles} from './styles';
@@ -43,21 +39,9 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
         <Text style={styles.movyOriginalText}>MOVY ORIGINAL</Text>
       </View>
       <View style={styles.iconContainer}>
-        <ActionButton
-          icon={<AddToListIcon fill={Colors.white} height={42} />}
-          text="My List"
-          onPress={() => {}}
-        />
-        <ActionButton
-          icon={<PlayIcon fill={Colors.white} />}
-          text="Play"
-          onPress={() => {}}
-        />
-        <ActionButton
-          icon={<InfoIcon fill={Colors.white} />}
-          text="Info"
-          onPress={onPressMovie}
-        />
+        <ActionButton type="my-list" movie={movie} />
+        <ActionButton type="play" movie={movie} />
+        <ActionButton type="info" movie={movie} />
       </View>
     </TouchableOpacity>
   );

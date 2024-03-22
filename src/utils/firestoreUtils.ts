@@ -53,7 +53,7 @@ const writeDataToFirestore = async (
   }
 };
 
-const addFavoritesToUser = async (email: string, favoritesArray: string[]) => {
+const editUserFavorites = async (email: string, favoritesArray: number[]) => {
   try {
     const q = query(collection(db, 'users'), where('email', '==', email));
 
@@ -73,4 +73,4 @@ const addFavoritesToUser = async (email: string, favoritesArray: string[]) => {
   }
 };
 
-export {getUserFavorites, writeDataToFirestore, addFavoritesToUser};
+export {getUserFavorites, writeDataToFirestore, editUserFavorites};
