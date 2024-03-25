@@ -9,14 +9,14 @@ interface MoviesResponse {
   isPending: boolean;
 }
 
-const useGetTrendingMovies = () => {
+const useGetRecentlyAddedMovies = () => {
   const [moviesResponse, setMoviesResponse] = useState<MoviesResponse>({
     data: null,
     error: '',
     isPending: false,
   });
 
-  const url = `${Config.BASE_URL}/movie/popular`;
+  const url = `${Config.BASE_URL}/discover/movie`;
   const options = {
     method: 'GET',
     headers: {
@@ -26,7 +26,7 @@ const useGetTrendingMovies = () => {
   };
 
   const {data, error, isLoading} = useQuery({
-    queryKey: ['trendingMovies'],
+    queryKey: ['recentlyAddedMovies'],
     queryFn: () => fetch(url, options).then(res => res.json()),
     select: response =>
       response.results.map((movie: Movie) => ({
@@ -47,4 +47,4 @@ const useGetTrendingMovies = () => {
   return {...moviesResponse, isLoading};
 };
 
-export default useGetTrendingMovies;
+export default useGetRecentlyAddedMovies;

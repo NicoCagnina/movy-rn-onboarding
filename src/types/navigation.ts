@@ -8,6 +8,7 @@ export type RootTabParamList = {
 };
 
 export type RootStackParamList = {
+  Login: undefined;
   TabNavigator: undefined;
   MovieDetails: undefined;
 };

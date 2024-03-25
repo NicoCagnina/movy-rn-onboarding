@@ -1,60 +1,37 @@
 import React from 'react';
-import {FlatList, Image, Text, TouchableOpacity, View} from 'react-native';
-import Config from 'react-native-config';
+import {Text, View} from 'react-native';
 import {styles} from './styles';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigation} from '../../types/navigation';
-import {NavigationScreens} from '../../types/NavigationScreens';
+import MovieList from './movieList';
 import {useMovieContext} from '../../context/moviesContext';
-import {Movie} from '../../types/movies';
+import useGetSimilarMovies from '../../hooks/useGetSimilarMovies';
 
 interface Props {
   title: string;
 }
 
-const ItemToRender = ({
-  item,
-  selectMovie,
-  navigation,
-}: {
-  item: Movie;
-  selectMovie: (id: number) => void;
-  navigation: StackNavigation;
-}) => {
-  return (
-    <TouchableOpacity
-      onPress={() => {
-        selectMovie(item.id);
-        navigation.push(NavigationScreens.MovieDetails);
-      }}>
-      <Image
-        style={styles.movieImg}
-        source={{uri: `${Config.IMAGE_URL}${item.poster_path}`}}
-      />
-    </TouchableOpacity>
-  );
-};
-
 const ListedMovies = ({title}: Props) => {
-  const {movies, selectMovie} = useMovieContext();
-  const navigation = useNavigation<StackNavigation>();
+  const {movies, recentlyAddedMovies, selectedMovie} = useMovieContext();
+  const {data: similarMovies} = useGetSimilarMovies(selectedMovie);
+
+  const renderActiveList = () => {
+    switch (title) {
+      case 'My List':
+        return <MovieList movies={movies} />; // TODO: replace with actual favorites list
+      case 'Trending Now':
+        return <MovieList movies={movies} />;
+      case 'Recently Added':
+        return <MovieList movies={recentlyAddedMovies} />;
+      case 'Similar Movies':
+        return <MovieList movies={similarMovies} />;
+      default:
+        return null;
+    }
+  };
 
   return (
     <View style={styles.container}>
       <Text style={styles.sectionTitle}>{title}</Text>
-      <FlatList
-        data={movies}
-        horizontal
-        contentContainerStyle={styles.contentContainerStyle}
-        renderItem={({item}) => (
-          <ItemToRender
-            item={item}
-            selectMovie={selectMovie}
-            navigation={navigation}
-          />
-        )}
-        keyExtractor={item => item.id.toString()}
-      />
+      {renderActiveList()}
     </View>
   );
 };

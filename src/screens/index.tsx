@@ -15,6 +15,8 @@ import {SafeAreaView, TouchableOpacity} from 'react-native';
 import {styles} from './styles';
 import MovieDetailsScreen from './movie-details';
 import {NavigationScreens} from '../types/NavigationScreens';
+import LoginScreen from './login';
+import {useUserContext} from '../context/userContext';
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 const Stack = createStackNavigator<RootStackParamList>();
@@ -91,33 +93,45 @@ const TabNavigator = () => {
 };
 
 function AppNavigator() {
+  const {isSignedIn} = useUserContext();
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name={NavigationScreens.TabNavigator}
-            component={TabNavigator}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name={NavigationScreens.MovieDetails}
-            component={MovieDetailsScreen}
-            options={({navigation}) => ({
-              headerTitle: 'Movie Details',
-              headerTitleAlign: 'center',
-              headerStyle: styles.headerStyle,
-              headerTitleStyle: styles.headerTitleStyle,
-              headerTintColor: Colors.white,
-              headerBackTitleVisible: false,
-              headerLeft: () => (
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                  {renderLeftArrowIcon(Colors.white)}
-                </TouchableOpacity>
-              ),
-            })}
-          />
-        </Stack.Navigator>
+        {isSignedIn ? (
+          <Stack.Navigator>
+            <Stack.Screen
+              name={NavigationScreens.TabNavigator}
+              component={TabNavigator}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name={NavigationScreens.MovieDetails}
+              component={MovieDetailsScreen}
+              options={({navigation}) => ({
+                headerTitle: 'Movie Details',
+                headerTitleAlign: 'center',
+                headerStyle: styles.headerStyle,
+                headerTitleStyle: styles.headerTitleStyle,
+                headerTintColor: Colors.white,
+                headerBackTitleVisible: false,
+                headerLeft: () => (
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    {renderLeftArrowIcon(Colors.white)}
+                  </TouchableOpacity>
+                ),
+              })}
+            />
+          </Stack.Navigator>
+        ) : (
+          <Stack.Navigator>
+            <Stack.Screen
+              name={NavigationScreens.Login}
+              component={LoginScreen}
+              options={{headerShown: false}}
+            />
+          </Stack.Navigator>
+        )}
       </NavigationContainer>
     </SafeAreaView>
   );
