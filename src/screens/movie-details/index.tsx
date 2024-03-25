@@ -13,7 +13,6 @@ import {getImageUrl, getMovieApprovalPercentage} from '../../utils/moviesUtils';
 import styles from './styles';
 import MovyLogoIcon from '../../assets/icons/MovyLogoIcon';
 import ActionButton from '../../components/action-button';
-import AddToListIcon from '../../assets/icons/AddListIcon';
 import ListedMovies from '../../components/listed-movies';
 import {useMovieContext} from '../../context/moviesContext';
 import {MovieDetails} from '../../types/movies';
@@ -62,11 +61,7 @@ const MovieDetailsScreen = () => {
           </TouchableOpacity>
           <Text style={styles.overview}>{item.overview}</Text>
           <View style={styles.addToListContainer}>
-            <ActionButton
-              icon={<AddToListIcon fill={Colors.white} height={42} />}
-              text="My List"
-              onPress={() => {}}
-            />
+            <ActionButton type="my-list" movie={item} />
           </View>
           <ListedMovies title="Similar Movies" />
         </View>

@@ -17,7 +17,7 @@ const LoginScreen = () => {
   const [password, setPassword] = useState('');
   const [isSignIn, setIsSignIn] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const {toggleUserIsSignedIn} = useUserContext();
+  const {toggleUserIsSignedIn, setEmail: setUserEmail} = useUserContext();
 
   const onSubmit = async () => {
     setIsLoading(true);
@@ -26,6 +26,7 @@ const LoginScreen = () => {
       : await firebaseRegister(email, password);
     setIsLoading(false);
     if (response?.email) {
+      setUserEmail(response.email);
       toggleUserIsSignedIn();
     }
   };
