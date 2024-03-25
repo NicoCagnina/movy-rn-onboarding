@@ -8,6 +8,7 @@ import {Movie} from '../../types/movies';
 import {styles} from './styles';
 import ListedMovies from '../../components/listed-movies';
 import {useMovieContext} from '../../context/moviesContext';
+import useGetRecentlyAddedMovies from '../../hooks/useGetRecentlyAddedMovies';
 
 interface HeaderComponentProps {
   isLoading: boolean;
@@ -27,24 +28,41 @@ const HeaderComponent = ({
 };
 
 const HomeScreen = () => {
-  const {data, error, isLoading} = useGetTrendingMovies();
-  const {addMovies} = useMovieContext();
+  const {
+    data: trendingMovies,
+    error: trendingMoviesError,
+    isLoading: loadingTrendingMovies,
+  } = useGetTrendingMovies();
+  const {
+    data: recentlyAddedMovies,
+    error: recentlyAddedMoviesError,
+    isLoading: loadingRecentlyAddedMovies,
+  } = useGetRecentlyAddedMovies();
+  const {addMovies, addRecentlyAddedMovies} = useMovieContext();
   const [highlightedMovie, setHighlightedMovie] = useState<Movie | null>(null);
   const sections = ['My List', 'Trending Now', 'Recently Added'];
 
   useEffect(() => {
-    if (data) {
+    if (trendingMovies) {
       const randomMovie = Math.floor(Math.random() * 21);
-      setHighlightedMovie(data[randomMovie]);
-      addMovies(data);
+      setHighlightedMovie(trendingMovies[randomMovie]);
+      addMovies(trendingMovies);
     }
-  }, [data]);
+    if (recentlyAddedMovies) {
+      console.log(recentlyAddedMovies);
+      addRecentlyAddedMovies(recentlyAddedMovies);
+    }
+  }, [trendingMovies]);
 
-  if (error) {
-    return <Text>An error occurred: {error}</Text>;
+  if (trendingMoviesError || recentlyAddedMoviesError) {
+    return (
+      <Text>
+        An error occurred: {trendingMoviesError || recentlyAddedMoviesError}
+      </Text>
+    );
   }
 
-  if (isLoading) {
+  if (loadingRecentlyAddedMovies || loadingTrendingMovies) {
     return (
       <View style={[styles.container]}>
         <ActivityIndicator
@@ -65,7 +83,7 @@ const HomeScreen = () => {
         style={styles.flatlistStyle}
         ListHeaderComponent={
           <HeaderComponent
-            isLoading={isLoading}
+            isLoading={loadingTrendingMovies || loadingRecentlyAddedMovies}
             highlightedMovie={highlightedMovie}
           />
         }

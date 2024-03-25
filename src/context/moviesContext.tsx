@@ -4,6 +4,8 @@ import {Movie} from '../types/movies';
 interface MovieContextType {
   movies: Movie[];
   addMovies: (moviesToAdd: Movie[]) => void;
+  recentlyAddedMovies: Movie[];
+  addRecentlyAddedMovies: (movies: Movie[]) => void;
   selectedMovie: number | null;
   selectMovie: (id: number) => void;
   filteredMovies: (movie: string) => Movie[];
@@ -21,10 +23,15 @@ export const useMovieContext = () => {
 
 export const MovieProvider = ({children}: {children: React.ReactNode}) => {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [recentlyAddedMovies, setRecentlyAddedMovies] = useState<Movie[]>([]);
   const [selectedMovie, setSelectedMovie] = useState<number | null>(null);
 
   const addMovies = (moviesToAdd: Movie[]) => {
     setMovies([...movies, ...moviesToAdd]);
+  };
+
+  const addRecentlyAddedMovies = (moviesToAdd: Movie[]) => {
+    setRecentlyAddedMovies([...recentlyAddedMovies, ...moviesToAdd]);
   };
 
   const selectMovie = (id: number) => {
@@ -41,7 +48,15 @@ export const MovieProvider = ({children}: {children: React.ReactNode}) => {
   };
   return (
     <MovieContext.Provider
-      value={{movies, addMovies, selectMovie, selectedMovie, filteredMovies}}>
+      value={{
+        movies,
+        addMovies,
+        selectMovie,
+        selectedMovie,
+        filteredMovies,
+        recentlyAddedMovies,
+        addRecentlyAddedMovies,
+      }}>
       {children}
     </MovieContext.Provider>
   );
