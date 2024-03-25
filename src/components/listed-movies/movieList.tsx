@@ -5,9 +5,14 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigation} from '../../types/navigation';
 import {FlatList} from 'react-native';
 import {styles} from './styles';
+import {Movie} from '../../types/movies';
 
-const FavoritesList = () => {
-  const {movies, selectMovie} = useMovieContext(); //TODO: replace this with the actual favorites list
+interface Props {
+  movies: Movie[] | null;
+}
+
+const MovieList = ({movies}: Props) => {
+  const {selectMovie} = useMovieContext();
   const navigation = useNavigation<StackNavigation>();
 
   return (
@@ -27,4 +32,4 @@ const FavoritesList = () => {
   );
 };
 
-export default FavoritesList;
+export default MovieList;

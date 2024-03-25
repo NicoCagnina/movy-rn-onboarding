@@ -49,7 +49,6 @@ const HomeScreen = () => {
       addMovies(trendingMovies);
     }
     if (recentlyAddedMovies) {
-      console.log(recentlyAddedMovies);
       addRecentlyAddedMovies(recentlyAddedMovies);
     }
   }, [trendingMovies]);
