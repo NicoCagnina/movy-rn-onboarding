@@ -15,12 +15,13 @@ const ListedMovie = ({
   selectMovie: (id: number) => void;
   navigation: StackNavigation;
 }) => {
+  const onMoviePress = () => {
+    selectMovie(item.id);
+    navigation.push(NavigationScreens.MovieDetails);
+  };
+
   return (
-    <TouchableOpacity
-      onPress={() => {
-        selectMovie(item.id);
-        navigation.push(NavigationScreens.MovieDetails);
-      }}>
+    <TouchableOpacity onPress={onMoviePress}>
       <Image
         style={styles.movieImg}
         source={{uri: `${Config.IMAGE_URL}${item.poster_path}`}}

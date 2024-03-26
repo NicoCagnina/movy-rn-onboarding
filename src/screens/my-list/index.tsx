@@ -1,30 +1,19 @@
 import React from 'react';
-import {FlatList, Image, View} from 'react-native';
+import {FlatList, View} from 'react-native';
 import {styles} from './styles';
-import {useMovieContext} from '../../context/moviesContext';
-import {getImageUrl} from '../../utils/moviesUtils';
-import {Movie} from '../../types/movies';
+import {useUserContext} from '../../context/userContext';
+import MovieToRender from './movieToRender';
 
 const MyListScreen = () => {
-  const {movies} = useMovieContext();
-
-  const renderImg = (item: Movie) => {
-    return (
-      <Image
-        source={{uri: getImageUrl(item.poster_path)}}
-        style={styles.movieImage}
-        resizeMode="contain"
-      />
-    );
-  };
+  const {favorites} = useUserContext();
 
   return (
     <View style={styles.container}>
       <FlatList
-        data={movies}
+        data={favorites}
         contentContainerStyle={styles.movieList}
-        keyExtractor={item => item.id.toString()}
-        renderItem={({item}) => renderImg(item)}
+        keyExtractor={item => item.toString()}
+        renderItem={({item}) => <MovieToRender id={item} />}
       />
     </View>
   );

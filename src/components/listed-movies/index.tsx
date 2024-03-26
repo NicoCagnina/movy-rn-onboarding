@@ -4,6 +4,7 @@ import {styles} from './styles';
 import MovieList from './movieList';
 import {useMovieContext} from '../../context/moviesContext';
 import useGetSimilarMovies from '../../hooks/useGetSimilarMovies';
+import ListedFavorites from './favoritesList';
 
 interface Props {
   title: string;
@@ -16,7 +17,7 @@ const ListedMovies = ({title}: Props) => {
   const renderActiveList = () => {
     switch (title) {
       case 'My List':
-        return <MovieList movies={movies} />; // TODO: replace with actual favorites list
+        return <ListedFavorites />;
       case 'Trending Now':
         return <MovieList movies={movies} />;
       case 'Recently Added':

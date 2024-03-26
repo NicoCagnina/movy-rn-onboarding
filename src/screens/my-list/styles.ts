@@ -11,7 +11,7 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
   },
   movieImage: {
     width: 110,
