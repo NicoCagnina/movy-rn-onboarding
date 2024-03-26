@@ -26,7 +26,7 @@ const useGetMovieDetails = (id: number) => {
   };
 
   const {data, error, isLoading} = useQuery({
-    queryKey: ['movieDetails'],
+    queryKey: ['movieDetails', id],
     queryFn: () => fetch(url, options).then(res => res.json()),
     select: (item: MovieDetails) => {
       return {
