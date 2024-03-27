@@ -36,7 +36,7 @@ const ActionButton = ({type, movie}: Props) => {
         return (
           <>
             <PlayIcon fill={Colors.white} />
-            <Text style={styles.whiteText}>My List</Text>
+            <Text style={styles.whiteText}>Play</Text>
           </>
         );
       case 'info':

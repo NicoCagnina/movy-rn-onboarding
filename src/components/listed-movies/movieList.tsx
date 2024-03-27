@@ -1,32 +1,22 @@
 import React from 'react';
 import ListedMovie from './listedMovie';
-import {useMovieContext} from '../../context/moviesContext';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigation} from '../../types/navigation';
 import {FlatList} from 'react-native';
 import {styles} from './styles';
 import {Movie} from '../../types/movies';
 
 interface Props {
   movies: Movie[] | null;
+  testID?: string;
 }
 
-const MovieList = ({movies}: Props) => {
-  const {selectMovie} = useMovieContext();
-  const navigation = useNavigation<StackNavigation>();
-
+const MovieList = ({movies, testID = 'movie-list'}: Props) => {
   return (
     <FlatList
       data={movies}
+      testID={testID}
       horizontal
       contentContainerStyle={styles.contentContainerStyle}
-      renderItem={({item}) => (
-        <ListedMovie
-          item={item}
-          selectMovie={selectMovie}
-          navigation={navigation}
-        />
-      )}
+      renderItem={({item}) => <ListedMovie item={item} />}
       keyExtractor={item => item.id.toString()}
     />
   );

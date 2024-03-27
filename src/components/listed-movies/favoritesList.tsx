@@ -4,12 +4,13 @@ import {styles} from './styles';
 import {useUserContext} from '../../context/userContext';
 import ListedFavorite from './listedFavorite';
 
-const MovieList = () => {
+const FavoriteList = () => {
   const {favorites} = useUserContext();
 
   return (
     <FlatList
       data={favorites}
+      testID="favorites-list"
       horizontal
       contentContainerStyle={styles.contentContainerStyle}
       renderItem={({item}) => <ListedFavorite item={item} />}
@@ -18,4 +19,4 @@ const MovieList = () => {
   );
 };
 
-export default MovieList;
+export default FavoriteList;

@@ -16,10 +16,13 @@ const GenreList = ({ids}: Props) => {
   const genres = genreIds.map(type => type.name);
 
   return (
-    <View style={styles.genreContainer}>
+    <View testID="genre-list" style={styles.genreContainer}>
       {genres.map((genre: string, index: number) => {
         return (
-          <View key={genre} style={styles.genreAndSeparator}>
+          <View
+            testID="separator-icon"
+            key={genre}
+            style={styles.genreAndSeparator}>
             <Text key={index} style={styles.genreText}>
               {genre}
             </Text>
