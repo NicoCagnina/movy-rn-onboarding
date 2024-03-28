@@ -33,6 +33,7 @@ const SearchBar = ({setSearchInputValue}: Props) => {
       </View>
       <TextInput
         style={styles.input}
+        testID="search-input"
         placeholder="Search for a movie that you love…"
         onFocus={toggleFocus}
         onBlur={toggleFocus}

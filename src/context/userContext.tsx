@@ -34,7 +34,6 @@ export const UserProvider = ({children}: {children: React.ReactNode}) => {
 
   const getFavorites = async () => {
     const favoritesOnFirestore = await getUserFavorites(email);
-    console.log(favoritesOnFirestore, 'sad');
     setFavorites(favoritesOnFirestore);
   };
 

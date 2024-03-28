@@ -20,11 +20,18 @@ const ListedFavorite = ({item}: {item: number}) => {
   };
 
   if (isLoading || !data) {
-    return <ActivityIndicator size="large" color={Colors.white} />;
+    return (
+      <ActivityIndicator
+        testID="loading-indicator"
+        size="large"
+        color={Colors.white}
+      />
+    );
   }
   return (
     <TouchableOpacity onPress={onMoviePress}>
       <Image
+        testID="movie-image"
         style={styles.movieImg}
         source={{uri: `${Config.IMAGE_URL}${data.poster_path}`}}
       />

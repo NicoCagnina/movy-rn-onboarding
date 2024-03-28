@@ -28,6 +28,7 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.heroImg}
+        testID="hero-image"
       />
       <Image
         source={require('../../assets/images/blur-shadow.png')}

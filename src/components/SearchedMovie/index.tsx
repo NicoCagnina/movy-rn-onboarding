@@ -24,13 +24,15 @@ const getMovieStars = (voteAverage: number) => {
       <FlatList
         data={completedStars}
         keyExtractor={(_, index) => index.toString()}
-        renderItem={() => <FullStarIcon width={24} height={24} />}
+        renderItem={() => (
+          <FullStarIcon testID="full-star-icon" width={24} height={24} />
+        )}
         horizontal
         style={{maxWidth: 24 * completedStars.length}}
       />
       {hasHalfStar && (
         <View style={styles.halfStar}>
-          <HalfStarIcon width={24} height={24} />
+          <HalfStarIcon testID="half-star-icon" width={24} height={24} />
         </View>
       )}
     </View>
@@ -47,12 +49,15 @@ const SearchedMovie = ({movie}: Props) => {
   };
 
   return (
-    <Pressable onPress={selectPressedMovie} style={styles.container}>
+    <Pressable
+      testID="movie-pressable"
+      onPress={selectPressedMovie}
+      style={styles.container}>
       <Image
         source={{uri: getImageUrl(movie.poster_path)}}
         style={styles.movieImage}
       />
-      <View style={styles.infoContainer}>
+      <View testID="stars-container" style={styles.infoContainer}>
         <Text style={styles.movieTitle}>{movie.title}</Text>
         {getMovieStars(movie.vote_average)}
       </View>

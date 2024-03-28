@@ -19,11 +19,18 @@ const ListedMovies = ({title}: Props) => {
       case 'My List':
         return <ListedFavorites />;
       case 'Trending Now':
-        return <MovieList movies={movies} />;
+        return <MovieList testID="trending-now-list" movies={movies} />;
       case 'Recently Added':
-        return <MovieList movies={recentlyAddedMovies} />;
+        return (
+          <MovieList
+            testID="recently-added-list"
+            movies={recentlyAddedMovies}
+          />
+        );
       case 'Similar Movies':
-        return <MovieList movies={similarMovies} />;
+        return (
+          <MovieList testID="similar-movies-list" movies={similarMovies} />
+        );
       default:
         return null;
     }
