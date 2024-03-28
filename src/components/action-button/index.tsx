@@ -75,7 +75,10 @@ const ActionButton = ({type, movie}: Props) => {
   };
 
   return (
-    <TouchableOpacity style={styles.iconWithText} onPress={handleOnPress}>
+    <TouchableOpacity
+      testID="action-button-container"
+      style={styles.iconWithText}
+      onPress={handleOnPress}>
       {getUiByType()}
     </TouchableOpacity>
   );

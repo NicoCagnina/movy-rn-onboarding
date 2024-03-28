@@ -37,7 +37,7 @@ const ListedMovies = ({title}: Props) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View testID="favorites-list-container" style={styles.container}>
       <Text style={styles.sectionTitle}>{title}</Text>
       {renderActiveList()}
     </View>

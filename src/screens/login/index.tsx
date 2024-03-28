@@ -53,7 +53,10 @@ const LoginScreen = () => {
           onChangeText={setPassword}
           secureTextEntry
         />
-        <TouchableOpacity style={styles.button} onPress={onSubmit}>
+        <TouchableOpacity
+          testID="auth-button"
+          style={styles.button}
+          onPress={onSubmit}>
           {isLoading ? (
             <ActivityIndicator color={Colors.white} />
           ) : (
@@ -66,7 +69,7 @@ const LoginScreen = () => {
           <Text style={styles.toggleText}>
             {isSignIn ? `Don't have an account?` : 'Already have an account?'}
           </Text>
-          <TouchableOpacity onPress={onPressToggle}>
+          <TouchableOpacity testID="toggle-button" onPress={onPressToggle}>
             <Text style={styles.toggleButton}>
               {isSignIn ? 'Sign up' : 'Log in'}
             </Text>

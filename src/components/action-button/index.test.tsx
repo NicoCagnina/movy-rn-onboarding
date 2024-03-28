@@ -57,7 +57,11 @@ describe('<ActionButton />', () => {
   });
 
   it('calls addFavorites when type is "my-list" and movie is not favorite', () => {
-    mockIsMovieFavorite.mockReturnValue(false);
+    (useUserContext as jest.Mock).mockReturnValue({
+      addFavorites: mockAddFavorites,
+      removeFavorites: mockRemoveFavorites,
+      isMovieFavorite: () => false,
+    });
     const {getByText} = render(
       <ActionButton type="my-list" movie={MovieDetailsMock} />,
     );
@@ -66,7 +70,11 @@ describe('<ActionButton />', () => {
   });
 
   it('calls removeFavorites when type is "my-list" and movie is favorite', () => {
-    mockIsMovieFavorite.mockReturnValue(true);
+    (useUserContext as jest.Mock).mockReturnValue({
+      addFavorites: mockAddFavorites,
+      removeFavorites: mockRemoveFavorites,
+      isMovieFavorite: () => true,
+    });
     const {getByText} = render(
       <ActionButton type="my-list" movie={MovieDetailsMock} />,
     );
