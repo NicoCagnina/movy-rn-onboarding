@@ -24,7 +24,7 @@ const MovieToRender = ({id}: {id: number}) => {
     return <ActivityIndicator size="large" color={Colors.white} />;
   }
   return (
-    <TouchableOpacity onPress={onMoviePress}>
+    <TouchableOpacity testID="movie-to-render" onPress={onMoviePress}>
       <Image
         source={{uri: getImageUrl(data.poster_path)}}
         style={styles.movieImage}

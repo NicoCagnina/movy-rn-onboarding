@@ -56,11 +56,13 @@ const MovieDetailsScreen = () => {
             <Text style={styles.movieDate}>{formattedDate}</Text>
             {!item.adult && <Text style={styles.movieAge}>For all ages</Text>}
           </View>
-          <TouchableOpacity style={styles.watchTrailerTouchable}>
+          <TouchableOpacity
+            testID="watch-trailer-button"
+            style={styles.watchTrailerTouchable}>
             <Text style={styles.watchTrailerText}>Watch Trailer</Text>
           </TouchableOpacity>
           <Text style={styles.overview}>{item.overview}</Text>
-          <View style={styles.addToListContainer}>
+          <View testID="add-to-list-button" style={styles.addToListContainer}>
             <ActionButton type="my-list" movie={item} />
           </View>
           <ListedMovies title="Similar Movies" />
@@ -72,7 +74,11 @@ const MovieDetailsScreen = () => {
   if (contentLoading || !data) {
     return (
       <View style={styles.activityIndicator}>
-        <ActivityIndicator size={'large'} color={Colors.primary} />
+        <ActivityIndicator
+          testID="loading-indicator"
+          size={'large'}
+          color={Colors.primary}
+        />
       </View>
     );
   }
