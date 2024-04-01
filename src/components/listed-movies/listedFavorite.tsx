@@ -29,7 +29,7 @@ const ListedFavorite = ({item}: {item: number}) => {
     );
   }
   return (
-    <TouchableOpacity onPress={onMoviePress}>
+    <TouchableOpacity testID="listed-favorite" onPress={onMoviePress}>
       <Image
         testID="movie-image"
         style={styles.movieImg}

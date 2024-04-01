@@ -39,7 +39,7 @@ const HomeScreenHero = ({movie}: {movie: Movie | null}) => {
       <View style={styles.movyOriginalContainer}>
         <Text style={styles.movyOriginalText}>MOVY ORIGINAL</Text>
       </View>
-      <View style={styles.iconContainer}>
+      <View testID="action-button-container" style={styles.iconContainer}>
         <ActionButton type="my-list" movie={movie} />
         <ActionButton type="play" movie={movie} />
         <ActionButton type="info" movie={movie} />
